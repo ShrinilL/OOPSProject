@@ -45,12 +45,13 @@ protected:
 
     }
     void showinfo(){
-         cout<<Name<<endl;
-    cout<<mobNo<<endl;
-    cout<<age<<endl;
-    cout<<Id_No<<endl;
-    cout<<inDate<<endl;
-    cout<<address;
+         cout<<"Name: "<<Name<<endl;
+    cout<<"Mobile Number: "<<mobNo<<endl;
+    cout<<"Age: "<<age<<endl;
+    cout<<"Id No: "<<Id_No<<endl;
+    cout<<"Check-in Date: "<<inDate<<endl;
+    cout<<"Address: "<<address<<endl;
+
 
     }
 };
@@ -60,6 +61,7 @@ class DeluxeRoom : private customer {
         int roomNo=0;
     friend void checkIn(DeluxeRoom* obj1, int cnt);
     friend void checkOut(DeluxeRoom* obj1, int room);
+    friend void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
 };
 
 class SuperDeluxeRoom : private customer {
@@ -67,6 +69,8 @@ class SuperDeluxeRoom : private customer {
         int roomNo;
     friend void checkIn(SuperDeluxeRoom* obj2, int cnt);
     friend void checkOut(SuperDeluxeRoom* obj2, int room);
+    friend void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
+
 };
 
 class Suite : private customer {
@@ -74,6 +78,7 @@ class Suite : private customer {
         int roomNo;
     friend void checkIn(Suite* obj3, int cnt);
     friend void checkOut(Suite* obj3, int room);
+    friend void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
 };
 
 void checkIn(DeluxeRoom* obj1, int cnt) {
@@ -259,6 +264,32 @@ void Available()
     cout<<"Number of Suites Available: "<<cn<<endl;
 }
 
+void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name){
+      if (obj1->Name==name)
+      {
+        cout<<"Room Number: "<<obj1->roomNo<<endl;
+        // cout<<"Name: "<<obj1->Name<<endl;
+        // cout<<"Mobile Number: "<<obj1->mobNo<<endl;
+        // cout<<"Age: "<<obj1->age<<endl;
+        // cout<<"Id NUmber: "<<obj1->Id_No<<endl;
+        // cout<<"Check in Date : "<<obj1->inDate<<endl;
+        // cout<<"Address : "<<obj1->address<<endl;
+        
+        obj1->showinfo();
+        
+      }
+      if (obj2->Name==name)
+      {
+        cout<<"Room Number: "<<obj2->roomNo<<endl;
+        obj2->showinfo();
+      }
+      if (obj3->Name==name)
+      {
+        cout<<"Room Number: "<<obj3->roomNo<<endl;
+        obj3->showinfo();
+      }
+ }
+
 int main() {
     DeluxeRoom* obj1[50];
     int y;
@@ -282,6 +313,7 @@ int main() {
 
     int option = 0;
     int choice;
+    string n;
 
     while (option != 5) {
         cout << "1. Check-In" << endl;
@@ -316,7 +348,7 @@ int main() {
             cnt3++;
         }
 
-        switch (option) {
+        switch(option) {
         case 1:
             cout << "1. Deluxe" << endl;
             cout << "2. Super Deluxe" << endl;
@@ -395,7 +427,24 @@ int main() {
         case 3:
             Available();
             break;
-            
+        case 4:
+            cout<<"Enter the name of the customer"<<endl;
+            cin.ignore();
+            getline(cin,n);
+            int c1,c2,c3;
+            for(c1=0,c2=0,c3=0;c1<50;c1++){
+                // I have a feeling that the below logic might not work as its only checking Deluxe -Shrinil
+                // Also we may need to add a counter to see if the function is called, and print not found if not called
+                if(Deluxe[c1]==1){
+                    searchcustomer(obj1[c1], obj2[c2], obj3[c3], n);
+                    break;
+                }
+                if(c2<25)
+                    c2++;
+                if(c3<25)
+                    c3++;
+            }
+            break;
         case 5:
             break;
         }
