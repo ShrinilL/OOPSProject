@@ -1,20 +1,20 @@
-//Put get info fn to get cust info
-
-
 #include <iostream>
 #include <string>
 #include <stdlib.h>
 using namespace std;
 
+// Create room status(occupied-1 or not-0) array
 int Deluxe[50];
 int SuperDeluxe[25];
 int suite[25];
 
+//Create class prototypes
 class customer;
 class DeluxeRoom;
 class SuperDeluxeRoom;
 class Suite;
 
+// Define base class customer
 class customer {
 protected:
     string Name="";
@@ -22,12 +22,12 @@ protected:
     int age=0;
     string Id_No="";
     string inDate="";
-    // string outDate;
     string address="";
 
-
-    void getinfo(){
-         cin.ignore();
+public:
+    void getinfo()
+    {
+    cin.ignore();
     cout << "Enter Name: ";
     getline(cin,Name);
     cout << "Enter Mobile Number: ";
@@ -40,52 +40,61 @@ protected:
     cout << "Enter Date: ";
     getline(cin, inDate);
     cout << "Enter Address: ";
-    cin.ignore();
     getline(cin,address);
-
     }
-    void showinfo(){
-         cout<<"Name: "<<Name<<endl;
-    cout<<"Mobile Number: "<<mobNo<<endl;
-    cout<<"Age: "<<age<<endl;
-    cout<<"Id No: "<<Id_No<<endl;
-    cout<<"Check-in Date: "<<inDate<<endl;
-    cout<<"Address: "<<address<<endl;
 
-
+    void showinfo()
+    {
+        cout<<endl;
+        cout<<"Name: "<<Name<<endl;
+        cout<<"Mobile Number: "<<mobNo<<endl;
+        cout<<"Age: "<<age<<endl;
+        cout<<"Id No: "<<Id_No<<endl;
+        cout<<"Check-in Date: "<<inDate<<endl;
+        cout<<"Address: "<<address<<endl;
+        cout<<endl;
     }
 };
 
+//Create derived class DeluxeRoom from customer
 class DeluxeRoom : private customer {
     public:
         int roomNo=0;
+    //Declare friend functions to access the variables of the class
     friend void checkIn(DeluxeRoom* obj1, int cnt);
     friend void checkOut(DeluxeRoom* obj1, int room);
-    friend void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
+    friend int searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
 };
 
+//Create derived class SuperDeluxeRoom from customer
 class SuperDeluxeRoom : private customer {
     public:
         int roomNo;
+    //Declare friend functions to access the variables of the class
     friend void checkIn(SuperDeluxeRoom* obj2, int cnt);
     friend void checkOut(SuperDeluxeRoom* obj2, int room);
-    friend void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
+    friend int searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
 
 };
 
+//Create derived class suite from customer
 class Suite : private customer {
     public:
         int roomNo;
+    //Declare friend functions to access the variables of the class
     friend void checkIn(Suite* obj3, int cnt);
     friend void checkOut(Suite* obj3, int room);
-    friend void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
+    friend int searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name);
 };
 
-void checkIn(DeluxeRoom* obj1, int cnt) {
- 
+/* Here we overload the function checkIn using different class pointer object
+   Each function corresponds to a different type of room in the hotel.*/
+void checkIn(DeluxeRoom* obj1, int cnt)
+{
     obj1->getinfo();
     obj1->showinfo();
     
+    //Below is the logic for room number assignment
     int i;
     for (i = 0; i < 50; i++) {
         if (Deluxe[i] == 0)
@@ -106,7 +115,7 @@ void checkIn(DeluxeRoom* obj1, int cnt) {
     else if (i<50) {
         obj1->roomNo = 500 + (i - 40 + 1);
     }
-    else{
+    else {
         cout<<"Sorry. No rooms available!"<<endl;
     }
 
@@ -121,6 +130,7 @@ void checkIn(SuperDeluxeRoom* obj2, int cnt) {
     obj2->getinfo();
     obj2->showinfo();
 
+    //Below is the logic for room number assignment
     int i;
     for (i = 0; i < 25; i++) {
         if (SuperDeluxe[i] == 0)
@@ -156,7 +166,7 @@ void checkIn(Suite* obj3, int cnt) {
     obj3->getinfo();
     obj3->showinfo();
 
-
+    //Below is the logic for room number assignment
     int i;
     for (i = 0; i < 25; i++) {
         if (suite[i] == 0)
@@ -185,8 +195,12 @@ void checkIn(Suite* obj3, int cnt) {
     suite[i]=1;
 }
 
+/* Here we overload the function checkOut using different class pointer object
+   Each function corresponds to a different type of room in the hotel.*/
 void checkOut(DeluxeRoom* obj1, int room)
 {
+    // Print Customer details
+    cout<<endl;
     cout<<"Details"<<endl;
     cout<<"Room Number: "<<room<<endl;
     cout<<"Name: "<<obj1->Name<<endl;
@@ -201,10 +215,13 @@ void checkOut(DeluxeRoom* obj1, int room)
     obj1->roomNo=0;
     cout<<endl;
     cout<<"Thank You for staying with us!"<<endl;
+    cout<<endl;
 }
 
 void checkOut(SuperDeluxeRoom* obj2, int room)
 {
+    //Print Customer Details
+    cout<<endl;
     cout<<"Details"<<endl;
     cout<<"Room Number: "<<room<<endl;
     cout<<"Name: "<<obj2->Name<<endl;
@@ -219,10 +236,13 @@ void checkOut(SuperDeluxeRoom* obj2, int room)
     obj2->roomNo=0;
     cout<<endl;
     cout<<"Thank You for staying with us!"<<endl;
+    cout<<endl;
 }
 
 void checkOut(Suite* obj3, int room)
 {
+    //Print Customer Details
+    cout<<endl;
     cout<<"Details"<<endl;
     cout<<"Room Number: "<<room<<endl;
     cout<<"Name: "<<obj3->Name<<endl;
@@ -237,10 +257,13 @@ void checkOut(Suite* obj3, int room)
     obj3->roomNo=0;
     cout<<endl;
     cout<<"Thank You for staying with us!"<<endl;
+    cout<<endl;
 }
 
+//The function Available checks the number of rooms of each type that are available
 void Available()
 {
+    cout<<endl;
     int i, cn=0;
     for(i=0; i<50; i++)
     {
@@ -262,35 +285,38 @@ void Available()
             cn++;
     }
     cout<<"Number of Suites Available: "<<cn<<endl;
+    cout<<endl;
 }
 
-void  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name){
+// This function searchcustomer takes the name of the customer and searches all the rooms for the customer name and returns the
+// details of the customer after finding the match
+int  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name){
       if (obj1->Name==name)
       {
         cout<<"Room Number: "<<obj1->roomNo<<endl;
-        // cout<<"Name: "<<obj1->Name<<endl;
-        // cout<<"Mobile Number: "<<obj1->mobNo<<endl;
-        // cout<<"Age: "<<obj1->age<<endl;
-        // cout<<"Id NUmber: "<<obj1->Id_No<<endl;
-        // cout<<"Check in Date : "<<obj1->inDate<<endl;
-        // cout<<"Address : "<<obj1->address<<endl;
-        
         obj1->showinfo();
-        
+        return 1;
       }
       if (obj2->Name==name)
       {
         cout<<"Room Number: "<<obj2->roomNo<<endl;
         obj2->showinfo();
+        return 1;
       }
       if (obj3->Name==name)
       {
         cout<<"Room Number: "<<obj3->roomNo<<endl;
         obj3->showinfo();
+        return 1;
       }
+      return 0;
  }
 
-int main() {
+// Main method
+int main()
+{
+    // We create an array of objects for each type of room
+    //The counter is for the postion of the room in the room status arrays
     DeluxeRoom* obj1[50];
     int y;
     for(y=0;y<50;y++)
@@ -314,8 +340,13 @@ int main() {
     int option = 0;
     int choice;
     string n;
+    int flag=0;
 
-    while (option != 5) {
+    while (option != 5) 
+    {
+        //Display the Menu
+        cout<<endl;
+        cout << "\t*MENU*"<<endl;
         cout << "1. Check-In" << endl;
         cout << "2. Check-Out" << endl;
         cout << "3. Available Rooms" << endl;
@@ -323,6 +354,7 @@ int main() {
         cout << "5. Exit" << endl;
         cin >> option;
 
+        // The for loops below iterate through the room status array and find the next room that is empty
         cnt1=0;
         int z;
         for(z=0;z<50;z++)
@@ -331,7 +363,6 @@ int main() {
                 break;
             cnt1++;
         }
-
         cnt2=0;
         for(z=0;z<50;z++)
         {
@@ -339,7 +370,6 @@ int main() {
                 break;
             cnt2++;
         }
-
         cnt3=0;
         for(z=0;z<50;z++)
         {
@@ -348,23 +378,29 @@ int main() {
             cnt3++;
         }
 
-        switch(option) {
+        // We open the switch case to carry out each menu task
+        switch(option)
+        {
+            // Case 1 is for Check In for each room type
         case 1:
             cout << "1. Deluxe" << endl;
             cout << "2. Super Deluxe" << endl;
             cout << "3. Suite" << endl;
             cout << "Enter option number: ";
             cin >> choice;
+            // Allocate a Deluxe Room
             if (choice == 1) {
                 obj1[cnt1] = new DeluxeRoom();
                 checkIn(obj1[cnt1], cnt1);
                 cnt1++;
             }
+            // Allocate a Super Deluxe Room
             else if (choice == 2) {
                 obj2[cnt2] = new SuperDeluxeRoom();
                 checkIn(obj2[cnt2], cnt2);
                 cnt2++;
             }
+            // Allocate a Suite
             else if (choice == 3) {
                 obj3[cnt3] = new Suite();
                 checkIn(obj3[cnt3], cnt3);
@@ -375,11 +411,12 @@ int main() {
                 cout<<"Invalid Choice!"<<endl;
             }
             break;
+            // Case 2 is for Check Out
         case 2:
             cout<<"Enter Room Number: "<<endl;
             int room;
             cin>>room;
-
+            // Based on the room number decide which type of room and corresponding class object is to be deleted
             if ((room<=110 && room>100) || (room<=210 && room>200) || (room<=310 && room>300) || (room<=410 && room>400) || (room<=510 && room>500))
             {
                 int c;
@@ -389,7 +426,7 @@ int main() {
                     {
                         checkOut(obj1[c], room);
                         Deluxe[c]=0;
-                        delete obj1[c];// We had a segmentation fault
+                        delete obj1[c];
                     }
                 }
             }
@@ -424,9 +461,11 @@ int main() {
                 cout<<"Not a valid Room Number"<<endl;
             }
             break;
+            // Case 3 is to check the number 
         case 3:
             Available();
             break;
+            // Case 4 is to search customer using their name
         case 4:
             cout<<"Enter the name of the customer"<<endl;
             cin.ignore();
@@ -435,31 +474,36 @@ int main() {
             for(c1=0,c2=0,c3=0;c1<50;c1++){
                 // I have a feeling that the below logic might not work as its only checking Deluxe -Shrinil
                 // Also we may need to add a counter to see if the function is called, and print not found if not called
-                if(Deluxe[c1]==1){
-                    searchcustomer(obj1[c1], obj2[c2], obj3[c3], n);
-                    break;
+                if(Deluxe[c1]==1 || SuperDeluxe[c2]==1 || suite[c3]==1) {
+                    flag=searchcustomer(obj1[c1], obj2[c2], obj3[c3], n);
+                    if (flag==1)
+                    {
+                        break;
+                    }
                 }
                 if(c2<25)
                     c2++;
                 if(c3<25)
                     c3++;
             }
+            if (flag==0)
+            {
+                cout<<"Customer Not Found!"<<endl;
+            }
             break;
         case 5:
             break;
+        default:
+            cout<<"Not a valid choice! Try again!"<<endl;
         }
     }
     
-    
-    
+
+    //Delete the below code after testing until object deletion
     int x;
     for(x=0; x<50; x++)
     {
         printf("%d ", obj1[x]->roomNo);
-        // if(Deluxe[x]!=0)
-        // {
-        //     printf("%d  ", obj1[x]->roomNo);
-        // }
     }
     for(x=0; x<25; x++)
     {
@@ -476,6 +520,7 @@ int main() {
         }
     }
 
+    // Delete the object array
     for (int i = 0; i < cnt1; i++) {
         delete obj1[i];
     }
