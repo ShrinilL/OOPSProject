@@ -10,6 +10,11 @@ int Deluxe[50];
 int SuperDeluxe[25];
 int suite[25];
 
+class customer;
+class DeluxeRoom;
+class SuperDeluxeRoom;
+class Suite;
+
 class customer {
 protected:
     string Name="";
@@ -19,6 +24,35 @@ protected:
     string inDate="";
     // string outDate;
     string address="";
+
+
+    void getinfo(){
+         cin.ignore();
+    cout << "Enter Name: ";
+    getline(cin,Name);
+    cout << "Enter Mobile Number: ";
+    getline(cin,mobNo);
+    cout << "Enter Age: ";
+    cin >> age;
+    cin.ignore();
+    cout << "Enter Id Number: ";
+    getline(cin,Id_No);
+    cout << "Enter Date: ";
+    getline(cin, inDate);
+    cout << "Enter Address: ";
+    cin.ignore();
+    getline(cin,address);
+
+    }
+    void showinfo(){
+         cout<<Name<<endl;
+    cout<<mobNo<<endl;
+    cout<<age<<endl;
+    cout<<Id_No<<endl;
+    cout<<inDate<<endl;
+    cout<<address;
+
+    }
 };
 
 class DeluxeRoom : private customer {
@@ -43,28 +77,10 @@ class Suite : private customer {
 };
 
 void checkIn(DeluxeRoom* obj1, int cnt) {
-    cin.ignore();
-    cout << "Enter Name: ";
-    getline(cin, obj1->Name);
-    cout << "Enter Mobile Number: ";
-    getline(cin, obj1->mobNo);
-    cout << "Enter Age: ";
-    cin >> obj1->age;
-    cin.ignore();
-    cout << "Enter Id Number: ";
-    getline(cin, obj1->Id_No);
-    cout << "Enter Date: ";
-    getline(cin, obj1->inDate);
-    cout << "Enter Address: ";
-    cin.ignore();
-    getline(cin, obj1->address);
-
-    cout<<obj1->Name<<endl;
-    cout<<obj1->mobNo<<endl;
-    cout<<obj1->age<<endl;
-    cout<<obj1->Id_No<<endl;
-    cout<<obj1->inDate<<endl;
-    cout<<obj1->address;
+ 
+    obj1->getinfo();
+    obj1->showinfo();
+    
     int i;
     for (i = 0; i < 50; i++) {
         if (Deluxe[i] == 0)
@@ -96,28 +112,9 @@ void checkIn(DeluxeRoom* obj1, int cnt) {
 }
 
 void checkIn(SuperDeluxeRoom* obj2, int cnt) {
-    cin.ignore();
-    cout << "Enter Name: ";
-    getline(cin, obj2->Name);
-    cout << "Enter Mobile Number: ";
-    getline(cin, obj2->mobNo);
-    cout << "Enter Age: ";
-    cin >> obj2->age;
-    cin.ignore();
-    cout << "Enter Id Number: ";
-    getline(cin, obj2->Id_No);
-    cout << "Enter Date: ";
-    getline(cin, obj2->inDate);
-    cout << "Enter Address: ";
-    cin.ignore();
-    getline(cin, obj2->address);
-
-    cout<<obj2->Name<<endl;
-    cout<<obj2->mobNo<<endl;
-    cout<<obj2->age<<endl;
-    cout<<obj2->Id_No<<endl;
-    cout<<obj2->inDate<<endl;
-    cout<<obj2->address;
+ 
+    obj2->getinfo();
+    obj2->showinfo();
 
     int i;
     for (i = 0; i < 25; i++) {
@@ -150,28 +147,9 @@ void checkIn(SuperDeluxeRoom* obj2, int cnt) {
 }
 
 void checkIn(Suite* obj3, int cnt) {
-    cin.ignore();
-    cout << "Enter Name: ";
-    getline(cin, obj3->Name);
-    cout << "Enter Mobile Number: ";
-    getline(cin, obj3->mobNo);
-    cout << "Enter Age: ";
-    cin >> obj3->age;
-    cin.ignore();
-    cout << "Enter Id Number: ";
-    getline(cin, obj3->Id_No);
-    cout << "Enter Date: ";
-    getline(cin, obj3->inDate);
-    cout << "Enter Address: ";
-    cin.ignore();
-    getline(cin, obj3->address);
-
-    cout<<obj3->Name<<endl;
-    cout<<obj3->mobNo<<endl;
-    cout<<obj3->age<<endl;
-    cout<<obj3->Id_No<<endl;
-    cout<<obj3->inDate<<endl;
-    cout<<obj3->address<<endl;
+ 
+    obj3->getinfo();
+    obj3->showinfo();
 
 
     int i;
@@ -216,6 +194,7 @@ void checkOut(DeluxeRoom* obj1, int room)
     obj1->inDate="";
     obj1->address="";
     obj1->roomNo=0;
+    cout<<endl;
     cout<<"Thank You for staying with us!"<<endl;
 }
 
@@ -233,6 +212,7 @@ void checkOut(SuperDeluxeRoom* obj2, int room)
     obj2->inDate="";
     obj2->address="";
     obj2->roomNo=0;
+    cout<<endl;
     cout<<"Thank You for staying with us!"<<endl;
 }
 
@@ -250,6 +230,7 @@ void checkOut(Suite* obj3, int room)
     obj3->inDate="";
     obj3->address="";
     obj3->roomNo=0;
+    cout<<endl;
     cout<<"Thank You for staying with us!"<<endl;
 }
 
