@@ -293,19 +293,19 @@ void Available()
 int  searchcustomer(DeluxeRoom* obj1,SuperDeluxeRoom* obj2,Suite* obj3,string name){
       if (obj1->Name==name)
       {
-        cout<<"Room Number: "<<obj1->roomNo<<endl;
+        cout<<"Room Number: "<<obj1->roomNo;
         obj1->showinfo();
         return 1;
       }
       if (obj2->Name==name)
       {
-        cout<<"Room Number: "<<obj2->roomNo<<endl;
+        cout<<"Room Number: "<<obj2->roomNo;
         obj2->showinfo();
         return 1;
       }
       if (obj3->Name==name)
       {
-        cout<<"Room Number: "<<obj3->roomNo<<endl;
+        cout<<"Room Number: "<<obj3->roomNo;
         obj3->showinfo();
         return 1;
       }
@@ -353,6 +353,29 @@ int main()
         cout << "4. Search Customer" << endl;
         cout << "5. Exit" << endl;
         cin >> option;
+        // int l=option1.length();
+        // int co, counter=0;
+        // for(co=0; co<l; co++)
+        // {
+        //     if(isdigit(option1[co]==0))
+        //     {
+        //         counter++;
+        //     }
+        // }
+        // if(counter==0)
+        // {
+        //     option=stoi(option1);
+        // }
+        // else
+        // {
+        //     cout<<"Invalid! Please enter a valid input!"<<endl;
+        //     continue;
+        // }
+        // test=option;
+        // if (test!=(int)option)
+        // {
+        //     break;
+        // }
 
         // The for loops below iterate through the room status array and find the next room that is empty
         cnt1=0;
