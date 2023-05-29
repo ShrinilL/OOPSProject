@@ -353,29 +353,6 @@ int main()
         cout << "4. Search Customer" << endl;
         cout << "5. Exit" << endl;
         cin >> option;
-        // int l=option1.length();
-        // int co, counter=0;
-        // for(co=0; co<l; co++)
-        // {
-        //     if(isdigit(option1[co]==0))
-        //     {
-        //         counter++;
-        //     }
-        // }
-        // if(counter==0)
-        // {
-        //     option=stoi(option1);
-        // }
-        // else
-        // {
-        //     cout<<"Invalid! Please enter a valid input!"<<endl;
-        //     continue;
-        // }
-        // test=option;
-        // if (test!=(int)option)
-        // {
-        //     break;
-        // }
 
         // The for loops below iterate through the room status array and find the next room that is empty
         cnt1=0;
@@ -518,28 +495,6 @@ int main()
             break;
         default:
             cout<<"Not a valid choice! Try again!"<<endl;
-        }
-    }
-    
-
-    //Delete the below code after testing until object deletion
-    int x;
-    for(x=0; x<50; x++)
-    {
-        printf("%d ", obj1[x]->roomNo);
-    }
-    for(x=0; x<25; x++)
-    {
-        if(SuperDeluxe[x]!=0)
-        {
-            printf("%d  ", obj2[x]->roomNo);
-        }
-    }
-    for(x=0; x<25; x++)
-    {
-        if(suite[x]!=0)
-        {
-            printf("%d  ", obj3[x]->roomNo);
         }
     }
 
