@@ -472,8 +472,6 @@ int main()
             getline(cin,n);
             int c1,c2,c3;
             for(c1=0,c2=0,c3=0;c1<50;c1++){
-                // I have a feeling that the below logic might not work as its only checking Deluxe -Shrinil
-                // Also we may need to add a counter to see if the function is called, and print not found if not called
                 if(Deluxe[c1]==1 || SuperDeluxe[c2]==1 || suite[c3]==1) {
                     flag=searchcustomer(obj1[c1], obj2[c2], obj3[c3], n);
                     if (flag==1)
